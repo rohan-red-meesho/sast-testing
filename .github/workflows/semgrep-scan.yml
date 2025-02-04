@@ -22,6 +22,9 @@ jobs:
           else
             echo "BASELINE_COMMIT=$GITHUB_EVENT_BEFORE" >> $GITHUB_ENV
           fi
+      - name: print baseline commit
+        run: |
+          echo "$BASELINE_COMMIT"
       - name: semgrep scan
         run: |
           semgrep scan --error --metrics=off --baseline-commit "$BASELINE_COMMIT" --config="p/default"
