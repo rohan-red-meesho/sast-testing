@@ -1,8 +1,8 @@
 let dynamic = window.prompt() // arbitrary user input
 
 
-//nosemgrep
+// nosemgrep
 eval(dynamic + 'possibly malicious code');
 
 eval(`${dynamic} possibly malicious code`);
-//nosemgrep
+// nosemgrep
