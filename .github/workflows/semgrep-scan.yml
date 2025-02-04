@@ -1,0 +1,23 @@
+name: Semgrep Scan
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  semgrep-scan:
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+
+    steps:
+      - name: clone code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: semgrep scan
+        run: |
+          semgrep scan \
+            --error \
+            --metrics=off \
+            --baseline-commit $ \
+            --config="p/default"
