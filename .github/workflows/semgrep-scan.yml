@@ -16,8 +16,4 @@ jobs:
           fetch-depth: 0
       - name: semgrep scan
         run: |
-          semgrep scan \
-            --error \
-            --metrics=off \
-            --baseline-commit $(git merge-base main HEAD) \
-            --config="p/default"
+          semgrep scan --error --metrics=off --baseline-commit "$(git merge-base main HEAD)" --config="p/default"
