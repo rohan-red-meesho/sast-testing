@@ -19,5 +19,5 @@ jobs:
           semgrep scan \
             --error \
             --metrics=off \
-            --baseline-commit $ \
+            --baseline-commit $(git merge-base main HEAD) \
             --config="p/default"
