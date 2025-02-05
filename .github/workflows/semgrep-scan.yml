@@ -16,4 +16,4 @@ jobs:
 
       - name: semgrep scan
         run: |
-          semgrep scan --error --metrics=off --config="p/default"
+          semgrep scan --error --metrics=off --config="p/default" --config .semgrep/
