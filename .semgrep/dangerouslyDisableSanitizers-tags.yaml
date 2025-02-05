@@ -1,0 +1,7 @@
+rules:
+  - id: dangerouslyDisableSanitizers-tags
+    message: Custom rule to detect usage of dangerouslyDisableSanitizers or dangerouslyDisableSanitizersByTagID in vue-meta for nuxtjs. The usage of these metaInfo properties could lead to XSS.
+    languages: [javascript, typescript]
+    severity: WARNING
+    patterns:
+      - pattern-regex: dangerouslyDisableSanitizers(ByTagID)?
