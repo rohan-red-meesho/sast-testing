@@ -17,3 +17,9 @@ jobs:
       - name: semgrep scan
         run: |
           semgrep scan --error --metrics=off --config="p/default" --config .semgrep/
+
+      - name: exit code fail
+        run: echo "exit_code=$?"; exit 1
+
+      - name: test
+        run: echo "Working after exit?"
