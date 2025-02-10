@@ -1,8 +1,5 @@
 name: CI Run
 on:
-  push:
-    branches: ["main"]
-  pull_request:
   workflow_run:
     workflows: ["Semgrep Scan"]
     types:
