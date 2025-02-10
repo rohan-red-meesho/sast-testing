@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      - name: print semgrep-status
+        run: echo "semgrep-scan_workflow_status=${{ github.event.workflow_run.conclusion }}"
 
       - name: running ci
         run: echo "CI shit here"
