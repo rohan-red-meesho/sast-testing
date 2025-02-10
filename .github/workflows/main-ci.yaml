@@ -1,0 +1,16 @@
+name: CI Run
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  ci-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: running ci
+        run: echo "CI shit here"
