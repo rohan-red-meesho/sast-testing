@@ -22,6 +22,8 @@ jobs:
       - name: Semgrep Exit Code
         run: |
           echo "SEC_SCAN_EXIT_CODE=$?" >> $GITHUB_ENV
+          echo "$SEC_SCAN_EXIT_CODE"
+          echo "${{ env.SEC_SCAN_EXIT_CODE }}"
 
       - name: Send Slack Alert on Failure
         if: ${{ env.SEC_SCAN_EXIT_CODE == '1' }}
