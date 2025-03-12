@@ -21,6 +21,10 @@ jobs:
           semgrep scan --error --metrics=off --config="p/default" --config .semgrep/
           echo "exit_code=$?" >> $GITHUB_ENV
 
+      - name: Debug exit code
+        run: |
+          echo "exit_code=$exit_code"
+
       - name: Send Slack Alert on Failure
         if: ${{ env.exit_code == '1' }}
         run: |
