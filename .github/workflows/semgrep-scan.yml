@@ -1,11 +1,11 @@
-name: Semgrep Scan
+name: Security Scan
 on:
   push:
     branches: ["main"]
   pull_request:
 
 jobs:
-  semgrep-scan:
+  security-scan:
     runs-on: ubuntu-latest
     container:
       image: returntocorp/semgrep
@@ -17,9 +17,25 @@ jobs:
       - name: semgrep scan
         run: |
           semgrep scan --error --metrics=off --config="p/default" --config .semgrep/
+          echo "SEC_SCAN_EXIT_CODE=$?" >> $GITHUB_ENV
 
-      - name: exit code fail
-        run: echo "exit_code=$?"
-
-      - name: test
-        run: echo "Working after exit?"
+      - name: send alert on slack
+        if: env.SEC_SCAN_EXIT_CODE == '1'
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+        --data '{
+          "text": "*CI Security Scan - Failed*",
+          "attachments": [
+            {
+              "color": "#ff0000",
+              "fields": [
+                { "title": "Repository", "value": "${{ github.repository }}", "short": true },
+                { "title": "Branch", "value": "${{ github.ref_name }}", "short": true },
+                { "title": "Commit", "value": "${{ github.sha }}", "short": true },
+                { "title": "Results", "value": "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Job logs>", "short": false }
+              ],
+              "footer": "Tag <@${{ secrets.MY_SLACK_USER }}> in case of any security issues",
+              "ts": '$(date +%s)'
+            }
+          ]
+        }' ${{ secrets.MY_SLACK_WEBHOOK_URL }}
