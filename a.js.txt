@@ -1,4 +1,0 @@
-const a = "a";
-console.log("shit");
-console.log("shit1");
-console.log("shit2");
