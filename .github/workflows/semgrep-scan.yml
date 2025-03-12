@@ -17,7 +17,7 @@ jobs:
       - name: Run Semgrep Scan
         continue-on-error: true
         run: |
-          semgrep scan --metrics=off --config="p/default" --config .semgrep/
+          semgrep scan --error --metrics=off --config="p/default" --config .semgrep/
           echo "SEC_SCAN_EXIT_CODE=$?" >> $GITHUB_ENV
 
       - name: Send Slack Alert on Failure
