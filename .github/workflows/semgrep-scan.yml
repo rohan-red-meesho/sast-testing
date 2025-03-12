@@ -24,7 +24,7 @@ jobs:
 
       - name: Debug exit code
         run: |
-          cho "exit_code=${{ env.exit_code }}"
+          echo "exit_code=${{ env.exit_code }}"
 
       - name: Send Slack Alert on Failure
         if: ${{ env.exit_code == '1' }}
