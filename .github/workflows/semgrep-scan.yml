@@ -18,16 +18,18 @@ jobs:
         continue-on-error: true
         id: semgrep
         run: |
+          set +e
           semgrep scan --error --metrics=off --config="p/default" --config .semgrep/
-          echo "exit_code=$?" >> $GITHUB_ENV
+          echo "SEC_SCAN_EXIT_CODE=$?" >> $GITHUB_ENV
           echo "HELLO"
+          set -e
 
       - name: Debug exit code
         run: |
-          echo "exit_code=${{ env.exit_code }}"
+          echo "SEC_SCAN_EXIT_CODE=${{ env.SEC_SCAN_EXIT_CODE }}"
 
       - name: Send Slack Alert on Failure
-        if: ${{ env.exit_code == '1' }}
+        if: ${{ env.SEC_SCAN_EXIT_CODE == '1' }}
         run: |
           curl -X POST -H 'Content-type: application/json' \
           --data '{
