@@ -18,6 +18,8 @@ jobs:
         continue-on-error: true
         run: |
           semgrep scan --error --metrics=off --config="p/default" --config .semgrep/
+          EXIT_CODE=$?
+          echo "EXIT_CODE=$EXIT_CODE"
 
       - name: Semgrep Exit Code
         run: |
